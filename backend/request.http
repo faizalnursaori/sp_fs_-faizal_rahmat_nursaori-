@@ -3,7 +3,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "email": "john.doe@example.com",
+  "email": "jana.doe@example.com",
   "password": "securePassword123"
 }
 
@@ -14,4 +14,17 @@ Content-Type: application/json
 {
   "email": "john.doe@example.com",
   "password": "securePassword123"
+}
+
+### Get current user (with token)
+GET http://localhost:8000/api/v1/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYThjNzM5NS00Nzc2LTQ5ZGMtYTU0My01MmE2NjM3OGMwYTkiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUwMTM2NjE5LCJleHAiOjE3NTAyMjMwMTl9.Wd6Kz7ZlSHIMIX6fxWdmxerLD7zeLVrI3HZ7I3Z_vXc
+
+### Create Project
+POST http://localhost:8000/api/v1/projects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYThjNzM5NS00Nzc2LTQ5ZGMtYTU0My01MmE2NjM3OGMwYTkiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUwMTQ4OTU4LCJleHAiOjE3NTAyMzUzNTh9.oAYN_a9Zko1lJwhP7xfW4i8CbE9Nz8otaEh-po17GfQ
+
+{
+  "name": "Team Website Redesign"
 }
