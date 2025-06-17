@@ -8,6 +8,11 @@ export interface LoginUserData {
   password: string;
 }
 
+export interface UpdateUserData {
+  email?: string;
+  password?: string;
+}
+
 export interface UserResponse {
   id: string;
   email: string;

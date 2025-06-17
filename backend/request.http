@@ -3,7 +3,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "email": "john.doe@example.com",
+  "email": "doel.jaelani@example.com",
   "password": "securePassword123"
 }
 
@@ -12,13 +12,32 @@ POST http://localhost:8000/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "kabizal@example.com",
+  "email": "doel.jaelani@example.com",
   "password": "securePassword123"
 }
 
-### Get current user (with token)
-GET http://localhost:8000/api/v1/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYThjNzM5NS00Nzc2LTQ5ZGMtYTU0My01MmE2NjM3OGMwYTkiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUwMTM2NjE5LCJleHAiOjE3NTAyMjMwMTl9.Wd6Kz7ZlSHIMIX6fxWdmxerLD7zeLVrI3HZ7I3Z_vXc
+### Get my profile
+GET http://localhost:8000/api/v1/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE4NzE0MiwiZXhwIjoxNzUwMjczNTQyfQ.y1STqT0at1Bs0MjbIsr5Ky37H9OA8TxVjBUQnGsVHls
+
+### Get all users
+GET http://localhost:8000/api/v1/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE4NzE0MiwiZXhwIjoxNzUwMjczNTQyfQ.y1STqT0at1Bs0MjbIsr5Ky37H9OA8TxVjBUQnGsVHls
+
+### Update user
+PATCH http://localhost:8000/api/v1/users/96a09434-8f2a-46ae-8755-bef9a456e35a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE4NzE0MiwiZXhwIjoxNzUwMjczNTQyfQ.y1STqT0at1Bs0MjbIsr5Ky37H9OA8TxVjBUQnGsVHls
+
+{
+  "email": "lazibak@example.com"
+}
+
+### Delete user
+DELETE http://localhost:8000/api/v1/users/7065718c-6907-4a36-97aa-05c2d3395a86
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwNjU3MThjLTY5MDctNGEzNi05N2FhLTA1YzJkMzM5NWE4NiIsImVtYWlsIjoiZG9lbC5qYWVsYW5pQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUwMTg3MzEwLCJleHAiOjE3NTAyNzM3MTB9.ymQOTU3xGkhaGehM3V-E1Nzjo21nbmTmu1Jolofx3LU
+
+
 
 ### Create Project
 POST http://localhost:8000/api/v1/projects
