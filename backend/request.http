@@ -26,7 +26,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MDkxZWUwLTY4NDgtNDVmOS04MWU4LWVkMzYxYmJjZDc1ZiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTAxNzcwMDQsImV4cCI6MTc1MDI2MzQwNH0.XtkkIOJx2bEjdESc116GyWKXJnSqFOwzn9evhMKsYc8
 
 {
-  "name": "Team Danantara"
+  "name": "Team Webdev"
 }
 
 ### Invite member by email
@@ -34,10 +34,28 @@ POST http://localhost:8000/api/v1/projects/791e3cdc-4ac5-4b3d-b3c9-72b6cf08800f/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MDkxZWUwLTY4NDgtNDVmOS04MWU4LWVkMzYxYmJjZDc1ZiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTAxNzcwMDQsImV4cCI6MTc1MDI2MzQwNH0.XtkkIOJx2bEjdESc116GyWKXJnSqFOwzn9evhMKsYc8
 
+{
+  "email": "devscale@example.com"
+}
+
+### Get Project Detail
+GET http://localhost:8000/api/v1/projects/75cab097-4f31-41b2-b42f-00f1496f7c80
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MDkxZWUwLTY4NDgtNDVmOS04MWU4LWVkMzYxYmJjZDc1ZiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTAxNzcwMDQsImV4cCI6MTc1MDI2MzQwNH0.XtkkIOJx2bEjdESc116GyWKXJnSqFOwzn9evhMKsYc8
+
+
+### Update Project
+PATCH http://localhost:8000/api/v1/projects/75cab097-4f31-41b2-b42f-00f1496f7c80
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MDkxZWUwLTY4NDgtNDVmOS04MWU4LWVkMzYxYmJjZDc1ZiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTAxNzcwMDQsImV4cCI6MTc1MDI2MzQwNH0.XtkkIOJx2bEjdESc116GyWKXJnSqFOwzn9evhMKsYc8
 
 {
-  "email": "kabizal@example.com"
+  "name": "Team WebDev"
 }
+
+### Delete Project
+DELETE http://localhost:8000/api/v1/projects/75cab097-4f31-41b2-b42f-00f1496f7c80
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MDkxZWUwLTY4NDgtNDVmOS04MWU4LWVkMzYxYmJjZDc1ZiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTAxNzcwMDQsImV4cCI6MTc1MDI2MzQwNH0.XtkkIOJx2bEjdESc116GyWKXJnSqFOwzn9evhMKsYc8
+
 
 ### Create task
 POST http://localhost:8000/api/v1/791e3cdc-4ac5-4b3d-b3c9-72b6cf08800f/tasks
@@ -69,3 +87,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0L
 DELETE http://localhost:8000/api/v1/task/540f3bef-093b-4317-b307-41be26aa6b24
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE3NzQ5OSwiZXhwIjoxNzUwMjYzODk5fQ.fq-6TrV5lLAEAobgxORurEnVxWY204X5QD2tNRYqLwY
+

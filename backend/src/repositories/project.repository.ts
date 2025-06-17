@@ -16,14 +16,10 @@ export const createProject = async (name: string, ownerId: string) => {
   });
 };
 
-export const getProjectsByUser = async (userId: string) => {
-  return prisma.project.findMany({
+export const getProjectById = async (projectId: string) => {
+  return prisma.project.findUnique({
     where: {
-      memberships: {
-        some: {
-          userId,
-        },
-      },
+      id: projectId,
     },
     include: {
       memberships: {
@@ -36,6 +32,23 @@ export const getProjectsByUser = async (userId: string) => {
           },
         },
       },
+    },
+  });
+};
+
+export const updateProject = async (projectId: string, data: { name: string }) => {
+  return prisma.project.update({
+    where: {
+      id: projectId,
+    },
+    data,
+  });
+};
+
+export const deleteProject = async (projectId: string) => {
+  return prisma.project.delete({
+    where: {
+      id: projectId,
     },
   });
 };

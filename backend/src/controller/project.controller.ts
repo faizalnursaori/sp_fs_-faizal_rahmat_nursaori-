@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import {
   handleCreateProject,
-  handleGetProjects,
+  handleGetProjectDetail,
   handleInviteMember,
+  handleDeleteProject,
+  handleUpdateProject,
 } from "../services/project.service";
 
 export const createProject = async (req: Request, res: Response) => {
@@ -32,17 +34,27 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-export const getProjects = async (req: Request, res: Response) => {
+export const getProjectDetail = async (req: Request, res: Response) => {
+  const { id } = req.params;
   const user = req.user!;
 
   try {
-    const projects = await handleGetProjects(user.id);
-    res.json(projects);
-  } catch (error) {
-    console.error("Get projects error:", error);
-    res.status(500).json({
-      message: "Failed to get projects",
-    });
+    const project = await handleGetProjectDetail(id, user.id);
+    res.json(project);
+  } catch (err) {
+    const msg = (err as Error).message;
+    if (msg === "PROJECT_NOT_FOUND") {
+      res.status(404).json({ message: "Project not found" });
+      return;
+    }
+
+    if (msg === "FORBIDDEN") {
+      res.status(403).json({ message: "You are not a member of this project" });
+      return;
+    }
+
+    res.status(500).json({ message: "Failed to get project", error: err });
+    return;
   }
 };
 
@@ -69,6 +81,45 @@ export const inviteMember = async (req: Request, res: Response) => {
     }
 
     res.status(500).json({ message: "Failed to invite", error: error });
+    return;
+  }
+};
+
+export const updateProject = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const user = req.user!;
+  const { name } = req.body;
+
+  try {
+    const project = await handleUpdateProject(id, user.id, { name });
+    res.json(project);
+  } catch (error) {
+    const msg = (error as Error).message;
+    if (msg === "FORBIDDEN") {
+      res.status(403).json({ message: "Only project owner can update" });
+    }
+
+    res.status(500).json({ message: "Failed to update project" });
+    return;
+  }
+};
+
+export const deleteProject = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const user = req.user!;
+
+  try {
+    await handleDeleteProject(id, user.id);
+    res.json({ message: "Project deleted" });
+  } catch (error) {
+    const msg = (error as Error).message;
+
+    if (msg === "FORBIDDEN") {
+      res.status(403).json({ message: "Only owner can delete" });
+      return;
+    }
+
+    res.status(500).json({ message: "Failed to delete project" });
     return;
   }
 };
