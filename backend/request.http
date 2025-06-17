@@ -3,7 +3,7 @@ POST http://localhost:8000/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "email": "jana.doe@example.com",
+  "email": "john.doe@example.com",
   "password": "securePassword123"
 }
 
@@ -12,7 +12,7 @@ POST http://localhost:8000/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "john.doe@example.com",
+  "email": "kabizal@example.com",
   "password": "securePassword123"
 }
 
@@ -23,8 +23,49 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYThjN
 ### Create Project
 POST http://localhost:8000/api/v1/projects
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYThjNzM5NS00Nzc2LTQ5ZGMtYTU0My01MmE2NjM3OGMwYTkiLCJlbWFpbCI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUwMTQ4OTU4LCJleHAiOjE3NTAyMzUzNTh9.oAYN_a9Zko1lJwhP7xfW4i8CbE9Nz8otaEh-po17GfQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MDkxZWUwLTY4NDgtNDVmOS04MWU4LWVkMzYxYmJjZDc1ZiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTAxNzcwMDQsImV4cCI6MTc1MDI2MzQwNH0.XtkkIOJx2bEjdESc116GyWKXJnSqFOwzn9evhMKsYc8
 
 {
-  "name": "Team Website Redesign"
+  "name": "Team Danantara"
 }
+
+### Invite member by email
+POST http://localhost:8000/api/v1/projects/791e3cdc-4ac5-4b3d-b3c9-72b6cf08800f/invite
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5MDkxZWUwLTY4NDgtNDVmOS04MWU4LWVkMzYxYmJjZDc1ZiIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTAxNzcwMDQsImV4cCI6MTc1MDI2MzQwNH0.XtkkIOJx2bEjdESc116GyWKXJnSqFOwzn9evhMKsYc8
+
+
+{
+  "email": "kabizal@example.com"
+}
+
+### Create task
+POST http://localhost:8000/api/v1/791e3cdc-4ac5-4b3d-b3c9-72b6cf08800f/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE3NzQ5OSwiZXhwIjoxNzUwMjYzODk5fQ.fq-6TrV5lLAEAobgxORurEnVxWY204X5QD2tNRYqLwY
+
+{
+  "title": "Fix bug",
+  "description": "Fix authentication bug",
+  "status": "TODO",
+  "assigneeId": "96a09434-8f2a-46ae-8755-bef9a456e35a"
+}
+
+### Get tasks for a project
+GET http://localhost:8000/api/v1/791e3cdc-4ac5-4b3d-b3c9-72b6cf08800/tasks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE3NzQ5OSwiZXhwIjoxNzUwMjYzODk5fQ.fq-6TrV5lLAEAobgxORurEnVxWY204X5QD2tNRYqLwY
+
+### Update task
+PATCH http://localhost:8000/api/v1/task/3dbedd0f-7ebd-4b40-a32c-5d847fc7629e
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE3NzQ5OSwiZXhwIjoxNzUwMjYzODk5fQ.fq-6TrV5lLAEAobgxORurEnVxWY204X5QD2tNRYqLwY
+
+
+{
+  "status": "DONE"
+}
+
+### Delete Task
+DELETE http://localhost:8000/api/v1/task/540f3bef-093b-4317-b307-41be26aa6b24
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2YTA5NDM0LThmMmEtNDZhZS04NzU1LWJlZjlhNDU2ZTM1YSIsImVtYWlsIjoia2FiaXphbEBleGFtcGxlLmNvbSIsImlhdCI6MTc1MDE3NzQ5OSwiZXhwIjoxNzUwMjYzODk5fQ.fq-6TrV5lLAEAobgxORurEnVxWY204X5QD2tNRYqLwY

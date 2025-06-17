@@ -15,10 +15,8 @@ export const register = async (req: Request, res: Response) => {
       res.status(400).json({ message: "Email already registered" });
       return;
     }
-    res.status(500).json({
-      message: "Server Error",
-      error,
-    });
+    res.status(500).json({ message: "Server Error" });
+    return;
   }
 };
 
@@ -29,12 +27,17 @@ export const login = async (req: Request, res: Response) => {
     const result = await loginUser({ email, password });
     res.json(result);
   } catch (error) {
+    if ((error as Error).message === "USER_NOT_FOUND") {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
     if ((error as Error).message === "INVALID_CREDENTIALS") {
       res.status(400).json({ message: "Invalid credentials" });
       return;
     }
-    res.status(500).json({
-      message: "Server Error",
-    });
+
+    res.status(500).json({ message: "Server Error" });
+    return;
   }
 };

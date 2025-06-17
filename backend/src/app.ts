@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
 import projectRoutes from "./routes/project.routes";
+import taskRoutes from "./routes/task.routes";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/projects", projectRoutes);
+app.use("/api/v1", taskRoutes);
 
 app.get("/", (_req, res) => {
   res.send("API is running...");
