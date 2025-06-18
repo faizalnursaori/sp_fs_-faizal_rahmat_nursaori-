@@ -1,3 +1,18 @@
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { authService } from "@/lib/api";
+
 export default function Home() {
-  return <h1>Hello World</h1>;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (authService.isAuthenticated()) {
+      router.replace("/dashboard");
+    } else {
+      router.replace("/login");
+    }
+  }, [router]);
+
+  return null;
 }

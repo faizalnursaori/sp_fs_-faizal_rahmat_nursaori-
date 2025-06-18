@@ -28,7 +28,9 @@ async function fetchWithAuth(url: string, options: RequestInit = {}, token?: str
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || "Request failed");
+    const error = new Error(errorData.message || "Request failed") as Error & { status?: number };
+    error.status = response.status;
+    throw error;
   }
 
   return response.json();
@@ -184,7 +186,11 @@ export const taskService = {
     return fetchWithAuth(`/${projectId}/tasks`, {}, token);
   },
 
-  updateTask: async (taskId: string, updates: { status?: string }, token: string) => {
+  updateTask: async (
+    taskId: string,
+    updates: { title?: string; description?: string; status?: string },
+    token: string
+  ) => {
     return fetchWithAuth(
       `/task/${taskId}`,
       {

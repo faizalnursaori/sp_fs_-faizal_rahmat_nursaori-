@@ -69,12 +69,23 @@ export default function DashboardPage() {
     <div className="container mx-auto py-8">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Your Projects</h1>
-        <Link href="/projects/new">
-          <Button>
-            <PlusIcon className="mr-2 h-4 w-4" />
-            New Project
+        <div className="flex gap-2">
+          <Link href="/projects/new">
+            <Button>
+              <PlusIcon className="mr-2 h-4 w-4" />
+              New Project
+            </Button>
+          </Link>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              authService.logout();
+              router.push("/login");
+            }}
+          >
+            Logout
           </Button>
-        </Link>
+        </div>
       </div>
 
       {projects.length === 0 ? (

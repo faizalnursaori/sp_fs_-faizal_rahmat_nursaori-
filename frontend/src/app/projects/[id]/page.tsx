@@ -7,6 +7,8 @@ import { Task } from "@/lib/types";
 import { toast } from "react-hot-toast";
 import { KanbanBoard } from "@/components/KanbanBoard";
 import { AddTaskModal } from "@/components/AddTaskModal";
+import { MoveLeft, Settings } from "lucide-react";
+import Link from "next/link";
 
 export default function ProjectBoardPage() {
   const router = useRouter();
@@ -61,17 +63,40 @@ export default function ProjectBoardPage() {
     }
   };
 
+  const handleTaskUpdated = (updatedTask: Task) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+    );
+  };
+
+  const handleTaskDeleted = (taskId: string) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  };
+
   if (isLoading) {
     return <p className="text-center py-10">Loading...</p>;
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-6">{projectName} — Board</h1>
+    <div className="container mx-auto py-8 mb-6">
+      <div className="flex items-center justify-between mx-10">
+        <Link href="/dashboard">
+          <MoveLeft />
+        </Link>
+        <h1 className="text-2xl font-bold">{projectName} — Board</h1>
+        <Link href={`/projects/${projectId}/settings`}>
+          <Settings />
+        </Link>
+      </div>
 
-      <KanbanBoard tasks={tasks} onTaskUpdate={handleUpdateTask} />
+      <KanbanBoard
+        tasks={tasks}
+        onTaskUpdate={handleUpdateTask}
+        onTaskUpdated={handleTaskUpdated}
+        onTaskDeleted={handleTaskDeleted}
+      />
 
-      <div className="mt-8 text-center">
+      <div className="flex mt-8 justify-center gap-1">
         <AddTaskModal projectId={projectId} onTaskAdded={refetchTasks} />
       </div>
     </div>

@@ -11,9 +11,17 @@ type KanbanBoardProps = {
   tasks: Task[];
   onTaskUpdate: (taskId: string, status: TaskStatus) => Promise<void>;
   onAddTask?: (status: TaskStatus) => void;
+  onTaskUpdated?: (task: Task) => void;
+  onTaskDeleted?: (taskId: string) => void;
 };
 
-export function KanbanBoard({ tasks, onTaskUpdate, onAddTask }: KanbanBoardProps) {
+export function KanbanBoard({
+  tasks,
+  onTaskUpdate,
+  onAddTask,
+  onTaskUpdated,
+  onTaskDeleted,
+}: KanbanBoardProps) {
   const statuses: TaskStatus[] = ["TODO", "IN_PROGRESS", "DONE"];
 
   const handleDragStart = (e: React.DragEvent, taskId: string) => {
@@ -35,6 +43,14 @@ export function KanbanBoard({ tasks, onTaskUpdate, onAddTask }: KanbanBoardProps
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+  };
+
+  const handleTaskCardUpdate = (updatedTask: Task) => {
+    onTaskUpdated?.(updatedTask);
+  };
+
+  const handleTaskCardDelete = (taskId: string) => {
+    onTaskDeleted?.(taskId);
   };
 
   return (
@@ -60,7 +76,11 @@ export function KanbanBoard({ tasks, onTaskUpdate, onAddTask }: KanbanBoardProps
               .filter((task) => task.status === status)
               .map((task) => (
                 <div key={task.id} draggable onDragStart={(e) => handleDragStart(e, task.id)}>
-                  <TaskCard task={task} />
+                  <TaskCard
+                    task={task}
+                    onUpdated={handleTaskCardUpdate}
+                    onDeleted={handleTaskCardDelete}
+                  />
                 </div>
               ))}
           </div>
