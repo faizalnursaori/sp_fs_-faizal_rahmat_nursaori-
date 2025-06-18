@@ -15,31 +15,24 @@ export default function CreateProjectPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    const checkAuth = () => {
-      const authenticated = authService.isAuthenticated();
-      setIsAuthenticated(authenticated);
-      setAuthChecked(true);
+    const token = authService.getToken();
 
-      if (!authenticated) {
-        router.push("/login");
-        toast.error("You're not authenticated");
-      }
-    };
+    if (!token) {
+      toast.error("You're not authenticated");
+      router.push("/login");
+    } else {
+      setIsAuthenticated(true);
+    }
 
-    checkAuth();
+    setIsAuthChecked(true);
   }, [router]);
 
-  if (!authChecked) {
-    return null; //
-  }
-
-  if (!isAuthenticated) {
-    return null;
-  }
+  if (!isAuthChecked) return null;
+  if (!isAuthenticated) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

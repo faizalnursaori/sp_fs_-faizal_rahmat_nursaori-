@@ -30,11 +30,13 @@ export interface ProjectMember {
   project?: Project;
 }
 
+export type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE";
+
 export interface Task {
   id: string;
   title: string;
   description: string;
-  status: "todo" | "in-progress" | "done";
+  status: TaskStatus;
   projectId: string;
   assigneeId?: string;
   createdAt: string;

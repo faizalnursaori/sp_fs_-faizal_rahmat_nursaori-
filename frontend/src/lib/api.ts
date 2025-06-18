@@ -72,6 +72,8 @@ export const authService = {
   getProfile: async (token: string) => {
     return fetchWithAuth("/users/me", {}, token);
   },
+
+  getToken: () => tokenStorage.get(),
 };
 
 export const userService = {
@@ -144,6 +146,10 @@ export const projectService = {
       },
       token
     );
+  },
+
+  getProjectMembers: async (projectId: string, token: string) => {
+    return fetchWithAuth(`/projects/${projectId}/members`, {}, token);
   },
 
   inviteMember: async (projectId: string, email: string, token: string) => {
