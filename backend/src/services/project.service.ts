@@ -2,14 +2,15 @@ import prisma from "../prisma";
 import {
   createProject,
   getProjectById,
+  getProjectsByUser,
   updateProject,
   deleteProject,
 } from "../repositories/project.repository";
 import { inviteMember, isOwnerProject } from "../repositories/membership.repository";
 import { findUserByEmail } from "../repositories/user.repository";
 
-export const handleCreateProject = async (name: string, ownerId: string) => {
-  return createProject(name, ownerId);
+export const handleCreateProject = async (name: string, ownerId: string, description: string) => {
+  return createProject(name, ownerId, description);
 };
 
 export const handleGetProjectDetail = async (projectId: string, userId: string) => {
@@ -25,10 +26,14 @@ export const handleGetProjectDetail = async (projectId: string, userId: string) 
   return project;
 };
 
+export const handleGetProjects = async (userId: string) => {
+  return getProjectsByUser(userId);
+};
+
 export const handleUpdateProject = async (
   projectId: string,
   userId: string,
-  data: { name: string }
+  data: { name: string; description: string }
 ) => {
   const isOwner = await isOwnerProject(projectId, userId);
   if (!isOwner) throw new Error("FORBIDDEN");

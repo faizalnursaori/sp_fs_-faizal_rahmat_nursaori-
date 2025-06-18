@@ -2,14 +2,16 @@ import { Request, Response } from "express";
 import {
   handleCreateProject,
   handleGetProjectDetail,
+  handleGetProjects,
   handleInviteMember,
   handleDeleteProject,
   handleUpdateProject,
 } from "../services/project.service";
 
 export const createProject = async (req: Request, res: Response) => {
-  const { name } = req.body;
+  const { name, description } = req.body;
   const user = req.user;
+  console.log("Create project by user:", req.user);
 
   if (!name) {
     res.status(400).json({
@@ -23,7 +25,7 @@ export const createProject = async (req: Request, res: Response) => {
   }
 
   try {
-    const project = await handleCreateProject(name, user.id);
+    const project = await handleCreateProject(name, user.id, description);
     res.status(201).json({
       message: "Create project succes",
       project,
@@ -58,6 +60,17 @@ export const getProjectDetail = async (req: Request, res: Response) => {
   }
 };
 
+export const getProjects = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+
+  try {
+    const projects = await handleGetProjects(userId);
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch projects", error });
+  }
+};
+
 export const inviteMember = async (req: Request, res: Response) => {
   const user = req.user!;
   const projectId = req.params.id;
@@ -88,10 +101,10 @@ export const inviteMember = async (req: Request, res: Response) => {
 export const updateProject = async (req: Request, res: Response) => {
   const { id } = req.params;
   const user = req.user!;
-  const { name } = req.body;
+  const { name, description } = req.body;
 
   try {
-    const project = await handleUpdateProject(id, user.id, { name });
+    const project = await handleUpdateProject(id, user.id, { name, description });
     res.json(project);
   } catch (error) {
     const msg = (error as Error).message;
