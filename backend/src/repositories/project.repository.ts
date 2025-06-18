@@ -63,6 +63,20 @@ export const getProjectById = async (projectId: string) => {
   });
 };
 
+export const getProjectMembers = async (projectId: string) => {
+  return prisma.membership.findMany({
+    where: { projectId },
+    include: {
+      user: {
+        select: {
+          id: true,
+          email: true,
+        },
+      },
+    },
+  });
+};
+
 export const updateProject = async (
   projectId: string,
   data: { name: string; description: string }

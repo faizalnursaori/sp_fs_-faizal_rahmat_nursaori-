@@ -6,6 +6,7 @@ import {
   updateProject,
   deleteProject,
   getProjects,
+  getProjectMembers,
 } from "../controller/project.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 
@@ -17,5 +18,6 @@ router.get("/:id", authMiddleware, getProjectDetail);
 router.get("/", authMiddleware, getProjects);
 router.patch("/:id", authMiddleware, updateProject);
 router.delete("/:id", authMiddleware, deleteProject);
+router.get("/:id/members", authMiddleware, getProjectMembers);
 
 export default router;

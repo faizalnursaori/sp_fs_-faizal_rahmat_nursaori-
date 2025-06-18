@@ -5,6 +5,7 @@ import {
   getProjectsByUser,
   updateProject,
   deleteProject,
+  getProjectMembers,
 } from "../repositories/project.repository";
 import { inviteMember, isOwnerProject } from "../repositories/membership.repository";
 import { findUserByEmail } from "../repositories/user.repository";
@@ -28,6 +29,11 @@ export const handleGetProjectDetail = async (projectId: string, userId: string) 
 
 export const handleGetProjects = async (userId: string) => {
   return getProjectsByUser(userId);
+};
+
+export const handleGetProjectMembers = async (projectId: string) => {
+  const memberships = await getProjectMembers(projectId);
+  return memberships.map((m) => m.user);
 };
 
 export const handleUpdateProject = async (

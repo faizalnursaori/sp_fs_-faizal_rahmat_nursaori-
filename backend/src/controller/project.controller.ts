@@ -6,6 +6,7 @@ import {
   handleInviteMember,
   handleDeleteProject,
   handleUpdateProject,
+  handleGetProjectMembers,
 } from "../services/project.service";
 
 export const createProject = async (req: Request, res: Response) => {
@@ -68,6 +69,18 @@ export const getProjects = async (req: Request, res: Response) => {
     res.status(200).json(projects);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch projects", error });
+  }
+};
+
+export const getProjectMembers = async (req: Request, res: Response) => {
+  const projectId = req.params.id;
+
+  try {
+    const members = await handleGetProjectMembers(projectId);
+    res.json(members);
+  } catch (error) {
+    console.error("Error getting project members", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
